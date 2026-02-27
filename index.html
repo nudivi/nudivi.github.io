@@ -3,159 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheCore | Приватный сервер 1.21</title>
+    <title>TheCore — Private Survival 1.21</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
-        :root { 
-            --main-green: #4CAF50; 
-            --discord-blue: #5865F2;
-            --bg-dark: #0a0a0a; 
-            --card-bg: #161616; 
-            --accent-gold: #ffcc00; 
-            --danger-red: #ff4444;
+        :root {
+            --primary: #00ff88;
+            --primary-glow: rgba(0, 255, 136, 0.3);
+            --bg: #050505;
+            --card-bg: rgba(25, 25, 25, 0.7);
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --accent: #5865F2;
         }
-        body { background: var(--bg-dark); color: #f0f0f0; font-family: 'Segoe UI', sans-serif; margin: 0; padding-bottom: 50px; line-height: 1.6; }
-        .container { max-width: 900px; margin: 0 auto; padding: 20px; }
-        
-        header { 
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://i.imgur.com/uI9vV6R.jpeg'); 
-            background-size: cover; padding: 80px 20px; text-align: center; border-bottom: 4px solid var(--main-green);
+
+        * { box-sizing: border-box; transition: all 0.3s ease; }
+
+        body {
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 136, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(88, 101, 242, 0.05) 0%, transparent 40%);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
-        h1 { font-size: 3.5em; margin: 0; letter-spacing: 8px; color: #fff; text-shadow: 0 0 20px rgba(76, 175, 80, 0.5); }
 
-        .status-bar { background: #111; padding: 12px 30px; border-radius: 30px; display: inline-block; margin-top: 25px; border: 1px solid var(--main-green); box-shadow: 0 0 15px rgba(76, 175, 80, 0.2); }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
-        .card { background: var(--card-bg); padding: 25px; border-radius: 15px; border: 1px solid #222; position: relative; }
-        .full { grid-column: 1 / -1; }
+        /* Анимация появления */
+        .reveal { opacity: 0; transform: translateY(30px); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
 
-        .btn { padding: 15px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; text-align: center; margin-top: 10px; border: none; cursor: pointer; }
-        .btn-apply { background: var(--main-green); color: #fff; flex: 1; }
-        .btn-discord { background: var(--discord-blue); color: #fff; flex: 1; }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--bg)), 
+                        url('https://i.imgur.com/uI9vV6R.jpeg') center/cover no-repeat;
+            padding: 20px;
+        }
 
-        .rule-item { margin-bottom: 10px; padding-left: 20px; border-left: 2px solid var(--main-green); }
-        .rule-item b { color: var(--main-green); }
-        .danger { border-left-color: var(--danger-red); }
-        
-        code { background: #000; padding: 4px 10px; border-radius: 5px; color: var(--accent-gold); font-family: monospace; }
-        footer { text-align: center; margin-top: 60px; color: #444; font-size: 0.9em; }
-        
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        h1 {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            margin: 0;
+            letter-spacing: -2px;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 30px var(--primary-glow));
+        }
+
+        .hero-sub {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .container { max-width: 1100px; margin: -100px auto 0; padding: 20px; z-index: 2; position: relative; }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        /* IP Box с неоном */
+        .copy-ip {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid var(--primary);
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            margin: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .copy-ip:hover { box-shadow: 0 0 20px var(--primary-glow); transform: scale(1.02); }
+        .copy-ip code { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #fff; }
+
+        .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
+        .btn {
+            flex: 1;
+            padding: 18px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            text-align: center;
+            font-size: 1rem;
+        }
+        .btn-main { background: var(--primary); color: #000; }
+        .btn-discord { background: var(--accent); color: #fff; }
+
+        /* Таблица */
+        .tech-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'JetBrains Mono', monospace; }
+        .tech-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .label { color: var(--primary); font-weight: bold; width: 40%; }
+
+        .footer { text-align: center; padding: 50px; color: var(--text-dim); font-size: 0.8rem; letter-spacing: 2px; }
+
+        /* Мобильные правки */
+        @media (max-width: 600px) {
+            .glass-card { padding: 25px; }
+            .container { margin-top: -50px; }
+        }
     </style>
 </head>
 <body>
 
 <header>
-    <p style="color: var(--main-green); font-weight: bold; margin: 0; letter-spacing: 3px;">SEASON #1: THE BEGINNING</p>
-    <h1>THE CORE</h1>
-    <div class="status-bar">
-        <span style="color: var(--main-green); animation: pulse 2s infinite;">●</span> 
-        <span style="font-weight: bold; letter-spacing: 1px;">ОТКРЫТ НАБОР В WHITELIST</span>
+    <div class="reveal active">
+        <p class="hero-sub">Experimental Private Cluster</p>
+        <h1>THE CORE</h1>
+        <div style="margin-top: 20px; background: rgba(0,255,136,0.1); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--primary); display: inline-block;">
+            <span style="color: var(--primary);">●</span> WHITELIST ОТКРЫТ
+        </div>
     </div>
 </header>
 
 <div class="container">
-    <div class="grid">
+    
+    <div class="glass-card reveal">
+        <h2 style="font-size: 2rem; margin-top: 0;">01. О проекте</h2>
+        <p style="color: var(--text-dim); font-size: 1.1rem;">TheCore — это не просто сервер. Это технический эксперимент по созданию идеального ванильного выживания на базе <b>Debian Linux</b>. Никакого креатива у админов, никаких платных привилегий. Только код, железо и игроки.</p>
         
-        <div class="card full" style="border: 1px solid var(--main-green);">
-            <h2 style="margin-top: 0;">🎮 Присоединяйся к нам</h2>
-            <p>Мы создаем ламповое комьюнити на базе чистого выживания. Никакого доната, влияющего на геймплей, только ванилла и стабильный хост.</p>
-            <p><b>IP сервера:</b> <code>cross-publication.gl.joinmc.link</code></p>
-            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                <a href="https://forms.gle/EZ35nKrM6oemJM1k9" class="btn btn-apply" target="_blank">Подать заявку</a>
-                <a href="https://discord.gg/seCNxFG2MG" class="btn btn-discord" target="_blank">Наш Discord</a>
+        <div class="copy-ip" onclick="copyIP()">
+            <code id="ipText">cross-publication.gl.joinmc.link</code>
+            <span style="color: var(--primary); font-weight: bold; font-size: 0.8rem;">CLICK TO COPY</span>
+        </div>
+
+        <div class="btn-group">
+            <a href="https://forms.gle/EZ35nKrM6oemJM1k9" class="btn btn-main">ПОДАТЬ АНКЕТУ</a>
+            <a href="https://discord.gg/seCNxFG2MG" class="btn btn-discord">DISCORD COMMUNITY</a>
+        </div>
+    </div>
+
+    <div class="grid">
+        <div class="glass-card reveal">
+            <h3 style="color: var(--primary);">Host Specs</h3>
+            <table class="tech-table">
+                <tr><td class="label">OS</td><td>Debian 12</td></tr>
+                <tr><td class="label">CPU</td><td>Pentium G630</td></tr>
+                <tr><td class="label">RAM</td><td>8GB DDR3</td></tr>
+                <tr><td class="label">Kernel</td><td>Purpur 1.21</td></tr>
+            </table>
+        </div>
+
+        <div class="glass-card reveal">
+            <h3 style="color: var(--primary);">Maintenance</h3>
+            <p style="font-size: 0.9rem;">Плановые работы проводятся еженедельно для оптимизации базы данных CoreProtect и очистки кэша.</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px;">
+                📅 <b>Среда</b><br>
+                ⏰ <b>21:00 — 22:00 МСК</b>
             </div>
         </div>
-
-        <div class="card full">
-            <h3>📜 Кодекс сервера</h3>
-            <div class="rule-item"><b>1. Честная игра:</b> Любые виды читов (X-Ray и др.) — мгновенный бан без амнистии.</div>
-            <div class="rule-item"><b>2. Уважение:</b> Гриферство и воровство запрещены. Уважайте чужой труд.</div>
-            <div class="rule-item"><b>3. Порядок:</b> Запрещено создание лаг-машин и намеренная нагрузка сервера.</div>
-            <div class="rule-item danger"><b>4. Ответственность:</b> Нарушение правил ведет к удалению из WhiteList.</div>
-        </div>
-
-        <div class="card">
-            <h3>🛠️ Тех. часть</h3>
-            <p style="font-size: 0.9em; color: #aaa;">
-                Сервер работает на <b>Debian 12</b>.<br>
-                Процессор: Intel Pentium G630.<br>
-                Версия: <b>Minecraft 1.21</b><br>
-                Слотов: 15
-            </p>
-        </div>
-<section id="plugins" style="background-color: #1a1a1a; color: white; padding: 20px; border-radius: 10px; font-family: sans-serif;">
-    <h2 style="color: #00ffcc; text-align: center;">Технологии "TheCore"</h2>
-    <p style="text-align: center; color: #aaa;">Наш софт-стек для комфортной игры:</p>
-    
-    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
-        <tr style="border-bottom: 1px solid #333;">
-            <th style="text-align: left; padding: 10px; color: #00ffcc;">Плагин</th>
-            <th style="text-align: left; padding: 10px; color: #00ffcc;">Назначение</th>
-        </tr>
-        <tr>
-            <td style="padding: 10px;"><b>EssentialsX</b></td>
-            <td style="padding: 10px; color: #ddd;">Базовый комфорт: дома, спавн и экономика.</td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;"><b>CoreProtect</b></td>
-            <td style="padding: 10px; color: #ddd;">Безопасность: логирование всех блоков. Гриферство исключено.</td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;"><b>LuckPerms</b></td>
-            <td style="padding: 10px; color: #ddd;">Система прав. Честная игра для каждого.</td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;"><b>ChestShop</b></td>
-            <td style="padding: 10px; color: #ddd;">Торговля на спавне. Создай свою торговую империю.</td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;"><b>SkinsRestorer</b></td>
-            <td style="padding: 10px; color: #ddd;">Твой скин всегда при тебе, даже на пиратке.</td>
-        </tr>
-        <tr>
-            <td style="padding: 10px;"><b>OpenInv</b></td>
-            <td style="padding: 10px; color: #ddd;">Прозрачность: админ видит инвентари для честной игры.</td>
-        </tr>
-    </table>
-</section>
-        <div style="border-left: 4px solid #333; padding-left: 15px; margin: 20px 0;">
-    <h3>Последние обновления [27.02.2026]</h3>
-    <p><b>— Технический прорыв:</b> Завершена настройка системы <b>ChestShop</b> и <b>OpenInv</b>. Теперь торговля на спавне официально доступна!</p>
-    <p><b>— Оптимизация:</b> Процессор <i>Pentium G630</i> переведен в режим активной прегенерации мира через <i>Chunky</i>. Лаги при исследовании новых земель сведены к минимуму.</p>
-    <p><b>— Безопасность:</b> Обновлены базы <i>CoreProtect</i>. Вайтлист активен, анкеты проверяются вручную в течение дня.</p>
-</div>
-        <section style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 20px auto;">
-    
-    <div style="background: #e3f2fd; border-left: 5px solid #2196f3; padding: 15px; border-radius: 4px; margin-bottom: 15px;">
-        <h4 style="margin: 0 0 10px 0; color: #1565c0;">🛠️ Плановое обслуживание</h4>
-        <p style="margin: 0; font-size: 14px;">Каждую <b>среду с 21:00 до 22:00</b> (МСК). Оптимизация БД и бэкапы.</p>
     </div>
 
-    <div style="background: #fff3e0; border-left: 5px solid #ff9800; padding: 15px; border-radius: 4px;">
-        <h4 style="margin: 0 0 10px 0; color: #ef6c00;">⚠️ Внеплановые работы</h4>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5;">
-            Поскольку сервер <b>TheCore</b> является частным техническим проектом, возможны кратковременные перебои в связи (отключение света, провайдера или критические обновления безопасности). 
-            <br><br>
-            <i>Если сервер недоступен более 15 минут вне графика — проверяйте статус в нашем Discord.</i>
-        </p>
-    </div>
-
-</section>
-        <div class="card">
-            <h3>👤 Администрация</h3>
-            <p><b>LIMooo</b> — Системный администратор.</p>
-            <p style="font-size: 0.85em; color: #777;">По всем вопросам и одобрению анкет писать в Discord.</p>
+    <div class="glass-card reveal" style="margin-top: 30px;">
+        <h3 style="color: var(--primary);">System Administrator</h3>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <div style="width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 1.5rem;">L</div>
+            <div>
+                <b style="font-size: 1.2rem;">LIMooo</b><br>
+                <span style="color: var(--text-dim);">Junior SysAdmin / Project Lead</span>
+            </div>
         </div>
-<div class="news-item">
-    <b>Безопасность:</b> Настроена фильтрация трафика и лимит соединений. Сервер защищен от бот-атак и попыток перегрузки.
-</div>
+        <p style="margin-top: 20px; font-style: italic; color: var(--text-dim);">"Моя цель — доказать, что крутой сервер можно поднять на любом железе, если правильно настроить конфиги и любить свое дело."</p>
     </div>
+
 </div>
 
-<footer>
-    &copy; 2026 TheCore Project | Дизайн и разработка: LIMooo <br>
-    Первый сезон: Бесплатно | Второй сезон: 50 руб.
+<footer class="footer">
+    THE CORE PROJECT &copy; 2026<br>
+    <span style="color: #333;">POWERED BY DEBIAN & PENTIUM</span>
 </footer>
+
+<script>
+    // Копирование IP
+    function copyIP() {
+        const text = document.getElementById('ipText').innerText;
+        navigator.clipboard.writeText(text);
+        const box = document.querySelector('.copy-ip');
+        box.style.borderColor = '#fff';
+        setTimeout(() => box.style.borderColor = '#00ff88', 200);
+        alert('Адрес скопирован!');
+    }
+
+    // Анимация при скролле
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
