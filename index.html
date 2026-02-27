@@ -26,11 +26,10 @@
         .card { background: var(--card-bg); padding: 25px; border-radius: 15px; border: 1px solid #222; position: relative; }
         .full { grid-column: 1 / -1; }
 
-        /* Прогресс бар */
         .progress-bg { background: #333; border-radius: 10px; height: 12px; width: 100%; margin: 15px 0 5px 0; }
         .progress-fill { background: var(--main-green); width: 5%; height: 100%; border-radius: 10px; box-shadow: 0 0 10px var(--main-green); }
 
-        .btn { padding: 15px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; text-align: center; margin-top: 10px; }
+        .btn { padding: 15px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; text-align: center; margin-top: 10px; border: none; cursor: pointer; }
         .btn-apply { background: var(--main-green); color: #fff; flex: 1; }
         .btn-discord { background: var(--discord-blue); color: #fff; flex: 1; }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
@@ -40,6 +39,7 @@
         .step { color: var(--main-green); font-weight: bold; margin-right: 5px; }
         
         footer { text-align: center; margin-top: 60px; color: #444; font-size: 0.8em; }
+        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .btn-group { flex-direction: column; } }
     </style>
 </head>
 <body>
@@ -48,7 +48,7 @@
     <p style="color: var(--main-green); font-weight: bold; margin: 0; letter-spacing: 2px;">HARDCORE VANILLA PROJECT</p>
     <h1>THE CORE</h1>
     <div class="status-bar">
-        <span id="st-dot" style="color: var(--main-green); animation: pulse 2s infinite;">●</span> <span id="st-text">Загрузка данных...</span>
+        <span id="st-dot" style="color: var(--main-green);">●</span> <span id="st-text">Мониторинг...</span>
         <span id="st-players" style="margin-left: 10px; color: #888;"></span>
     </div>
 </header>
@@ -58,62 +58,71 @@
         
         <div class="card full">
             <h2>🚀 Быстрый старт</h2>
-            <div style="display: flex; flex-direction: column; gap: 10px;">
-                <div><span class="step">ШАГ 1:</span> Заполни <a href="https://forms.gle/EZ35nKrM6oemJM1k9" style="color: var(--main-green);">анкету игрока</a>.</div>
-                <div><span class="step">ШАГ 2:</span> Зайди в наш <a href="https://discord.gg/seCNxFG2MG" style="color: var(--discord-blue);">Discord</a> для подтверждения.</div>
-                <div><span class="step">ШАГ 3:</span> Получи одобрение и заходи по IP: <code style="color: var(--accent-gold);">zipfile-increased.gl.at.ply.gg</code></div>
+            <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                <div><span class="step">1.</span> Заполни <a href="https://forms.gle/EZ35nKrM6oemJM1k9" style="color: var(--main-green); text-decoration: none; font-weight: bold;">анкету игрока</a>.</div>
+                <div><span class="step">2.</span> Зайди в наш <a href="https://discord.gg/seCNxFG2MG" style="color: var(--discord-blue); text-decoration: none; font-weight: bold;">Discord</a> для подтверждения.</div>
+                <div><span class="step">3.</span> Дождись WhiteList и заходи: <code style="background: #000; padding: 3px 8px; border-radius: 5px; color: var(--accent-gold);">zipfile-increased.gl.at.ply.gg</code></div>
             </div>
-            <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <a href="https://forms.gle/EZ35nKrM6oemJM1k9" class="btn btn-apply" target="_blank">Подать заявку</a>
-                <a href="https://discord.gg/seCNxFG2MG" class="btn btn-discord" target="_blank">Discord Сервер</a>
+                <a href="https://discord.gg/seCNxFG2MG" class="btn btn-discord" target="_blank">Наш Discord</a>
             </div>
         </div>
 
         <div class="card full">
             <div class="free-badge">СЕЗОН #1 — EARLY ACCESS</div>
-            <h3>⏳ Состояние сезона</h3>
-            <p style="margin: 0; font-size: 0.9em;">До планового вайпа осталось: <b>~40 дней</b></p>
+            <h3>⏳ Прогресс сезона</h3>
+            <p style="margin: 0; font-size: 0.9em;">До планового вайпа (обнуления мира) осталось: <b>~40 дней</b></p>
             <div class="progress-bg">
                 <div class="progress-fill"></div>
             </div>
-            <p style="font-size: 0.8em; color: #666;">Прогресс: 5% (Старт 26.02.2026)</p>
+            <p style="font-size: 0.8em; color: #666;">Текущий этап: Развитие и первые поселения (5%)</p>
         </div>
 
         <div class="card">
-            <h3>🆕 Последние изменения</h3>
+            <h3>🆕 Новости проекта</h3>
             <div class="news-item">
-                <b>26 Февраля:</b> Официальный запуск сайта и анкет. Открыт набор тестеров.
+                <b>26 Февраля:</b> Официальный запуск набора. Первый сезон объявлен <b>бесплатным</b>!
             </div>
             <div class="news-item" style="border-color: #444; color: #888;">
-                <b>Скоро:</b> Настройка системы внутриигровой экономики.
+                <b>В разработке:</b> Настройка плагинов оптимизации для Pentium G630.
             </div>
         </div>
 
         <div class="card">
             <h3>🛠️ Администрация</h3>
             <p style="margin-bottom: 5px;"><b>LIMooo</b></p>
-            <p style="font-size: 0.85em; color: #aaa; margin: 0;">System Administrator & Developer</p>
-            <p style="font-size: 0.8em; color: #666; margin-top: 5px;">
-                Отвечает за: Debian 12 OS, Безопасность, Оптимизацию Pentium G630.
+            <p style="font-size: 0.85em; color: var(--main-green); margin: 0;">System Administrator</p>
+            <p style="font-size: 0.8em; color: #777; margin-top: 10px;">
+                Настройка Debian 12, проброс портов, безопасность ядра и управление WhiteList.
             </p>
         </div>
 
         <div class="card full">
-            <h3>🖥️ Hardware & Core</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; font-family: monospace; font-size: 0.9em; color: #888;">
-                <div>CPU: Intel Pentium G630 2.7GHz</div>
-                <div>RAM: 8GB DDR3 (4GB MC Dedicated)</div>
-                <div>OS: Debian Linux 12 Stable</div>
-                <div>Engine: Pufferfish 1.21.x</div>
+            <h3>🖥️ Hardware Spec (Host Node)</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: monospace; font-size: 0.9em; color: #888;">
+                <div>• CPU: Intel Pentium G630 2.7GHz</div>
+                <div>• RAM: 8GB DDR3</div>
+                <div>• OS: Debian 12 Stable</div>
+                <div>• Java: OpenJDK 21</div>
+                <div>• Core: Pufferfish (Optimized)</div>
+                <div>• Location: Тюменская обл.</div>
             </div>
+        </div>
+
+        <div class="card full">
+            <h3>📜 Важная информация</h3>
+            <p style="font-size: 0.95em;">1. Первый сезон <b>бесплатно</b>. Второй сезон — <b>50 руб/проходка</b>.</p>
+            <p style="font-size: 0.95em;">2. Любое использование читов (X-Ray и др.) — бан по IP без права возврата.</p>
+            <p style="font-size: 0.85em; color: #666;">*Все собранные средства идут на оплату электричества и апгрейд железа.</p>
         </div>
 
     </div>
 </div>
 
 <footer>
-    &copy; 2026 TheCore Project | Администрирование: LIMooo <br>
-    Доступ на 2-й сезон: 50 рублей. Проект независим от Mojang AB.
+    &copy; 2026 TheCore Project | Дизайн и разработка: LIMooo <br>
+    Никаких модов не требуется. Версия 1.21.
 </footer>
 
 <script>
@@ -135,7 +144,7 @@
                 text.innerHTML = "ТЕХНИЧЕСКИЕ РАБОТЫ";
                 players.innerHTML = "";
             }
-        } catch (e) { text.innerHTML = "Ошибка связи с хостом"; }
+        } catch (e) { text.innerHTML = "Ошибка связи"; }
     }
     updateStatus();
     setInterval(updateStatus, 30000);
