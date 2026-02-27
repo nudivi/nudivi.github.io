@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TheCore | Приватный сервер minecraft 1.21 (скоро открытие)</title>
+    <title>TheCore | Техническая подготовка</title>
     <style>
         :root { 
             --main-green: #4CAF50; 
@@ -16,40 +16,37 @@
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
         
         header { 
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('https://i.imgur.com/uI9vV6R.jpeg'); 
-            background-size: cover; padding: 70px 20px; text-align: center; border-bottom: 4px solid var(--main-green);
+            background: linear-gradient(rgba(0,0,0,0.9), rgba(0,0,0,0.9)), url('https://i.imgur.com/uI9vV6R.jpeg'); 
+            background-size: cover; padding: 60px 20px; text-align: center; border-bottom: 4px solid #555;
         }
-        h1 { font-size: 3.5em; margin: 0; letter-spacing: 5px; }
+        h1 { font-size: 3em; margin: 0; letter-spacing: 5px; }
 
-        .status-bar { background: #000; padding: 10px 25px; border-radius: 30px; display: inline-block; margin-top: 20px; border: 1px solid #333; }
+        .status-bar { background: #1a1a1a; padding: 10px 25px; border-radius: 30px; display: inline-block; margin-top: 20px; border: 1px solid #333; }
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 30px; }
         .card { background: var(--card-bg); padding: 25px; border-radius: 15px; border: 1px solid #222; position: relative; }
         .full { grid-column: 1 / -1; }
 
         .progress-bg { background: #333; border-radius: 10px; height: 12px; width: 100%; margin: 15px 0 5px 0; }
-        .progress-fill { background: var(--main-green); width: 5%; height: 100%; border-radius: 10px; box-shadow: 0 0 10px var(--main-green); }
+        .progress-fill { background: var(--accent-gold); height: 100%; border-radius: 10px; box-shadow: 0 0 8px var(--accent-gold); }
 
-        .btn { padding: 15px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; text-align: center; margin-top: 10px; border: none; cursor: pointer; }
+        .btn { padding: 15px 25px; border-radius: 10px; text-decoration: none; font-weight: bold; display: inline-block; transition: 0.3s; text-align: center; margin-top: 10px; border: none; }
         .btn-apply { background: var(--main-green); color: #fff; flex: 1; }
         .btn-discord { background: var(--discord-blue); color: #fff; flex: 1; }
         .btn:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
-        .free-badge { background: var(--accent-gold); color: #000; padding: 4px 12px; border-radius: 4px; font-weight: bold; font-size: 0.8em; position: absolute; top: -10px; left: 20px; }
-        .news-item { border-left: 2px solid var(--main-green); padding-left: 15px; margin-bottom: 15px; font-size: 0.9em; }
+        .news-item { border-left: 2px solid var(--accent-gold); padding-left: 15px; margin-bottom: 15px; font-size: 0.9em; }
         .step { color: var(--main-green); font-weight: bold; margin-right: 5px; }
         
         footer { text-align: center; margin-top: 60px; color: #444; font-size: 0.8em; }
-        @media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .btn-group { flex-direction: column; } }
     </style>
 </head>
 <body>
 
 <header>
-    <p style="color: var(--main-green); font-weight: bold; margin: 0; letter-spacing: 2px;">VANILLA SERVER (скоро открытие)</p>
+    <p style="color: var(--accent-gold); font-weight: bold; margin: 0; letter-spacing: 2px;">COMING SOON / ПОДГОТОВКА К ЗАПУСКУ</p>
     <h1>THE CORE</h1>
     <div class="status-bar">
-        <span id="st-dot" style="color: var(--main-green);">●</span> <span id="st-text">Мониторинг...</span>
-        <span id="st-players" style="margin-left: 10px; color: #888;"></span>
+        <span style="color: #ff9800;">⚙️</span> <span>СТАТУС: НАСТРОЙКА ЯДРА И ПРАВ</span>
     </div>
 </header>
 
@@ -57,11 +54,12 @@
     <div class="grid">
         
         <div class="card full">
-            <h2>🚀 Быстрый старт</h2>
+            <h2>🚀 Старт через неделю</h2>
+            <p>Мы работаем над стабильностью. Анкеты уже принимаются и проверяются!</p>
             <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
-                <div><span class="step">1.</span> Заполни <a href="https://forms.gle/EZ35nKrM6oemJM1k9" style="color: var(--main-green); text-decoration: none; font-weight: bold;">анкету игрока</a>.</div>
-                <div><span class="step">2.</span> Зайди в наш <a href="https://discord.gg/seCNxFG2MG" style="color: var(--discord-blue); text-decoration: none; font-weight: bold;">Discord</a> для подтверждения.</div>
-                <div><span class="step">3.</span> Дождись WhiteList и заходи: <code style="background: #000; padding: 3px 8px; border-radius: 5px; color: var(--accent-gold);">zipfile-increased.gl.at.ply.gg</code></div>
+                <div><span class="step">IP:</span> <code style="background: #000; padding: 3px 8px; border-radius: 5px; color: var(--accent-gold);">cross-publication.gl.joinmc.link</code></div>
+                <div><span class="step">1.</span> Заполни анкету (отбор в WhiteList).</div>
+                <div><span class="step">2.</span> Жди подтверждения в Discord.</div>
             </div>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <a href="https://forms.gle/EZ35nKrM6oemJM1k9" class="btn btn-apply" target="_blank">Подать заявку</a>
@@ -70,85 +68,47 @@
         </div>
 
         <div class="card full">
-            <div class="free-badge">СЕЗОН #1 — EARLY ACCESS</div>
-            <h3>⏳ Прогресс сезона</h3>
-            <p style="margin: 0; font-size: 0.9em;">До планового вайпа (обнуления мира) осталось: <b>~? дней</b></p>
+            <h3>⏳ Готовность системы</h3>
+            <p style="margin: 0; font-size: 0.9em;">Осталось: <b>~7 дней до открытия</b></p>
             <div class="progress-bg">
-                <div class="progress-fill"></div>
+                <div class="progress-fill" style="width: 25%;"></div>
             </div>
-            <p style="font-size: 0.8em; color: #666;">Текущий этап: Развитие и первые поселения (0%)</p>
+            <p style="font-size: 0.8em; color: #666;">Текущий этап: Настройка LuckPerms и прав доступа (25%)</p>
         </div>
 
         <div class="card">
-            <h3>🆕 Новости проекта</h3>
+            <h3>🆕 Новости разработки</h3>
             <div class="news-item">
-                <b>? Февраля:</b> Официальный запуск набора. Первый сезон объявлен <b>бесплатным</b>!
+                <b>27 Февраля:</b> Обновлен адрес сервера (туннель), настроены базовые префиксы.
             </div>
-            <div class="news-item" style="border-color: #444; color: #888;">
-                <b>В разработке:</b> Первая версия сервера.
+            <div class="news-item">
+                <b>В процессе:</b> Настройка взаимодействия со спавном (калитки, двери).
             </div>
         </div>
 
         <div class="card">
             <h3>🛠️ Администрация</h3>
-            <p style="margin-bottom: 5px;"><b>LIMooo</b></p>
-            <p style="font-size: 0.85em; color: var(--main-green); margin: 0;">System Administrator</p>
-            <p style="font-size: 0.8em; color: #777; margin-top: 10px;">
-                Настройка Debian 12, проброс портов, безопасность ядра и управление WhiteList.
-            </p>
+            <p><b>LIMooo</b> — System Administrator</p>
+            <p style="font-size: 0.8em; color: #777;">Делаю стабильный сервер на Debian 12 для 15 игроков.</p>
         </div>
 
         <div class="card full">
-            <h3>🖥️ Hardware Spec (Host Node)</h3>
+            <h3>🖥️ Hardware Spec</h3>
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-family: monospace; font-size: 0.9em; color: #888;">
-                <div>• CPU: Intel Pentium G630 2.7GHz</div>
+                <div>• CPU: Intel Pentium G630</div>
                 <div>• RAM: 8GB DDR3</div>
-                <div>• OS: Debian 12 Stable</div>
-                <div>• Java: OpenJDK 21</div>
-                <div>• Core: Pufferfish (Optimized)</div>
-                <div>• Location: Тюменская обл.</div>
+                <div>• OS: Debian 12</div>
+                <div>• Core: Pufferfish 1.21</div>
             </div>
-        </div>
-
-        <div class="card full">
-            <h3>📜 Важная информация</h3>
-            <p style="font-size: 0.95em;">1. Первый сезон <b>бесплатно</b>. Второй сезон — <b>50 руб/проходка</b>.</p>
-            <p style="font-size: 0.95em;">2. Любое использование читов (X-Ray и др.) — бан по IP без права возврата.</p>
-            <p style="font-size: 0.85em; color: #666;">*Все собранные средства идут на оплату электричества и апгрейд железа.</p>
         </div>
 
     </div>
 </div>
 
 <footer>
-    &copy; 2026 TheCore Project | Дизайн и разработка: LIMooo <br>
+    &copy; 2026 TheCore Project | Администрирование: LIMooo <br>
     Никаких модов не требуется. Версия 1.21.
 </footer>
-
-<script>
-    async function updateStatus() {
-        const ip = "zipfile-increased.gl.at.ply.gg";
-        try {
-            const res = await fetch(`https://api.mcstatus.io/v2/status/java/${ip}`);
-            const data = await res.json();
-            const dot = document.getElementById('st-dot');
-            const text = document.getElementById('st-text');
-            const players = document.getElementById('st-players');
-            
-            if (data.online) {
-                dot.style.color = "#4CAF50";
-                text.innerHTML = "СЕРВЕР ОНЛАЙН";
-                players.innerHTML = `| Игроков: ${data.players.online} / 15`;
-            } else {
-                dot.style.color = "#ff4444";
-                text.innerHTML = "ТЕХНИЧЕСКИЕ РАБОТЫ";
-                players.innerHTML = "";
-            }
-        } catch (e) { text.innerHTML = "Ошибка связи"; }
-    }
-    updateStatus();
-    setInterval(updateStatus, 30000);
-</script>
 
 </body>
 </html>
