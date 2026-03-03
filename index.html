@@ -14,6 +14,7 @@
             --text-main: #ffffff;
             --text-dim: #a0a0a0;
             --accent: #5865F2;
+            --warning: #ff6b6b;
         }
 
         * { box-sizing: border-box; transition: all 0.3s ease; }
@@ -30,7 +31,22 @@
             overflow-x: hidden;
         }
 
-        /* Анимация появления */
+        /* Whitelist Banner */
+        .top-banner {
+            background: var(--primary);
+            color: #000;
+            text-align: center;
+            padding: 8px;
+            font-weight: 900;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 5px 20px var(--primary-glow);
+        }
+
         .reveal { opacity: 0; transform: translateY(30px); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
@@ -41,16 +57,16 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.3), var(--bg)), 
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), var(--bg)), 
                         url('https://i.imgur.com/uI9vV6R.jpeg') center/cover no-repeat;
             padding: 20px;
         }
 
         h1 {
-            font-size: clamp(3rem, 10vw, 6rem);
+            font-size: clamp(3rem, 12vw, 7rem);
             font-weight: 900;
             margin: 0;
-            letter-spacing: -2px;
+            letter-spacing: -3px;
             background: linear-gradient(to right, #fff, var(--primary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -65,7 +81,7 @@
             text-transform: uppercase;
         }
 
-        .container { max-width: 1100px; margin: -100px auto 0; padding: 20px; z-index: 2; position: relative; }
+        .container { max-width: 1100px; margin: -80px auto 0; padding: 20px; z-index: 2; position: relative; }
 
         .glass-card {
             background: var(--card-bg);
@@ -80,7 +96,6 @@
 
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
 
-        /* IP Box с неоном */
         .copy-ip {
             background: rgba(0,0,0,0.5);
             border: 2px solid var(--primary);
@@ -91,11 +106,9 @@
             align-items: center;
             cursor: pointer;
             margin: 30px 0;
-            position: relative;
-            overflow: hidden;
         }
         .copy-ip:hover { box-shadow: 0 0 20px var(--primary-glow); transform: scale(1.02); }
-        .copy-ip code { font-family: 'JetBrains Mono', monospace; font-size: 1.2rem; color: #fff; }
+        .copy-ip code { font-family: 'JetBrains Mono', monospace; font-size: 1.1rem; color: #fff; }
 
         .btn-group { display: flex; gap: 15px; flex-wrap: wrap; }
         .btn {
@@ -106,18 +119,22 @@
             font-weight: 700;
             text-align: center;
             font-size: 1rem;
+            text-transform: uppercase;
         }
-        .btn-main { background: var(--primary); color: #000; }
+        .btn-main { background: var(--primary); color: #000; box-shadow: 0 0 15px var(--primary-glow); }
         .btn-discord { background: var(--accent); color: #fff; }
 
-        /* Таблица */
         .tech-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-family: 'JetBrains Mono', monospace; }
         .tech-table td { padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); }
         .label { color: var(--primary); font-weight: bold; width: 40%; }
 
         .footer { text-align: center; padding: 50px; color: var(--text-dim); font-size: 0.8rem; letter-spacing: 2px; }
 
-        /* Мобильные правки */
+        /* Steps */
+        .step-container { display: flex; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+        .step { background: rgba(0,0,0,0.3); padding: 15px; border-radius: 12px; flex: 1; min-width: 150px; border: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .step-num { color: var(--primary); font-family: 'JetBrains Mono'; font-weight: 900; display: block; margin-bottom: 5px; }
+
         @media (max-width: 600px) {
             .glass-card { padding: 25px; }
             .container { margin-top: -50px; }
@@ -126,12 +143,16 @@
 </head>
 <body>
 
+<div class="top-banner">
+    ⚠️ Доступ только через Whitelist • Вход по заявкам
+</div>
+
 <header>
     <div class="reveal active">
         <p class="hero-sub">Experimental Private Cluster</p>
         <h1>THE CORE</h1>
-        <div style="margin-top: 20px; background: rgba(0,255,136,0.1); padding: 8px 20px; border-radius: 50px; border: 1px solid var(--primary); display: inline-block;">
-            <span style="color: var(--primary);">●</span> WHITELIST ОТКРЫТ
+        <div style="margin-top: 20px; background: rgba(0,255,136,0.1); padding: 10px 25px; border-radius: 50px; border: 1px solid var(--primary); display: inline-block;">
+            <span style="color: var(--primary); animation: pulse 1.5s infinite;">●</span> ВХОД СТРОГО ПО АНКЕТАМ
         </div>
     </div>
 </header>
@@ -139,132 +160,98 @@
 <div class="container">
     
     <div class="glass-card reveal">
-        <h2 style="font-size: 2rem; margin-top: 0;">01. О проекте</h2>
-        <p style="color: var(--text-dim); font-size: 1.1rem;">TheCore — это не просто сервер. Это технический эксперимент по созданию идеального ванильного выживания на базе <b>Debian Linux</b>. Никакого креатива у админов, никаких платных привилегий. Только код, железо и игроки.</p>
+        <h2 style="font-size: 2rem; margin-top: 0;">01. Концепция</h2>
+        <p style="color: var(--text-dim); font-size: 1.1rem;">TheCore — это проект для тех, кому важно <b>комьюнити</b>, а не количество игроков. Мы ограничиваем доступ, чтобы гарантировать отсутствие токсичности и идеальную работу сервера на базе Debian.</p>
         
+        <div class="step-container">
+            <div class="step"><span class="step-num">01</span>Подача анкеты</div>
+            <div class="step"><span class="step-num">02</span>Интервью</div>
+            <div class="step"><span class="step-num">03</span>Whitelist</div>
+        </div>
+
         <div class="copy-ip" onclick="copyIP()">
             <code id="ipText">cross-publication.gl.joinmc.link</code>
-            <span style="color: var(--primary); font-weight: bold; font-size: 0.8rem;">CLICK TO COPY</span>
+            <span style="color: var(--primary); font-weight: bold; font-size: 0.8rem;">COPY IP</span>
         </div>
 
         <div class="btn-group">
-            <a href="https://forms.gle/EZ35nKrM6oemJM1k9" class="btn btn-main">ПОДАТЬ АНКЕТУ</a>
-            <a href="https://discord.gg/seCNxFG2MG" class="btn btn-discord">DISCORD COMMUNITY</a>
+            <a href="https://forms.gle/EZ35nKrM6oemJM1k9" class="btn btn-main">ЗАПОЛНИТЬ АНКЕТУ</a>
+            <a href="https://discord.gg/seCNxFG2MG" class="btn btn-discord">DISCORD ЧАТ</a>
         </div>
-    </div>
-<div class="glass-card reveal" style="border: 1px solid #ff6b6b; background: rgba(255, 107, 107, 0.05);">
-    <h3 style="color: #ff6b6b;">🚀 Глобальный перезапуск: 27 Марта</h3>
-    <div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
-        
-        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; border-left: 4px solid #ff6b6b;">
-            <b style="color: #fff; font-size: 1.1rem;">🌊 Полный ВАЙП (Season 1)</b><br>
-            <span style="color: var(--text-dim); font-size: 0.9rem;">Мир будет полностью сброшен. Новая генерация, новые правила, чистый старт для всех.</span>
-        </div>
-
-        <div style="background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; border-left: 4px solid #ff6b6b;">
-            <b style="color: #fff; font-size: 1.1rem;">🎟️ Единый вход: 50₽</b><br>
-            <span style="color: var(--text-dim); font-size: 0.9rem;">С 27.03 доступ в WhiteList становится платным для всех участников проекта без исключений.</span>
-        </div>
-<div class="glass-card reveal" style="border: 1px solid #00ff41; margin-top: 20px; background: rgba(0, 255, 65, 0.05); padding: 20px; border-radius: 15px;">
-    <h3 style="color: #00ff41; text-transform: uppercase; letter-spacing: 1px; font-family: 'Courier New', monospace;">⚡ ПОДДЕРЖКА ИНФРАСТРУКТУРЫ</h3>
-    
-    <div style="margin: 15px 0; line-height: 1.6;">
-        <p style="color: #fff; font-size: 1rem; margin-bottom: 12px;">
-            Сервер <b>TheCore</b> базируется на Host ПК №6. Ваша поддержка критически важна для стабильной работы:
-        </p>
-        <ul style="color: rgba(255,255,255,0.7); font-size: 0.9rem; padding-left: 20px; list-style-type: '>';">
-            <li style="margin-bottom: 5px; padding-left: 10px;"> Оплата счетов за электричество (аптайм 24/7)</li>
-            <li style="margin-bottom: 5px; padding-left: 10px;"> Закупка новых комплектующих (Апгрейд CPU/RAM)</li>
-            <li style="margin-bottom: 5px; padding-left: 10px;"> Обслуживание системы (БП, термопаста, охлаждение)</li>
-        </ul>
     </div>
 
-    <div style="background: rgba(0,0,0,0.6); padding: 15px; border-radius: 10px; border: 1px solid rgba(0, 255, 65, 0.3);">
-        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; font-family: 'Courier New', monospace;">
-            <span style="color: #00ff41;">[SYSTEM_UPGRADE]</span>
-            <span style="color: #00ff41;">15%</span>
+    <div class="glass-card reveal" style="border: 1px solid var(--warning); background: rgba(255, 107, 107, 0.05);">
+        <h3 style="color: var(--warning); margin-top: 0;">🚀 Глобальный перезапуск: 27 Марта</h3>
+        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border-left: 4px solid var(--warning);">
+                <b style="color: #fff; font-size: 1.1rem;">🌊 Полный ВАЙП</b><br>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Начало Season 1. Абсолютно новая генерация 1.21 и чистая экономика.</span>
+            </div>
+            <div style="background: rgba(0,0,0,0.3); padding: 20px; border-radius: 15px; border-left: 4px solid var(--warning);">
+                <b style="color: #fff; font-size: 1.1rem;">🎟️ Платный вход: 50₽</b><br>
+                <span style="color: var(--text-dim); font-size: 0.9rem;">Разовый взнос для поддержания жизни сервера и отсеивания "однодневок".</span>
+            </div>
         </div>
-        <div style="width: 100%; height: 8px; background: #111; border-radius: 4px; overflow: hidden; border: 1px solid #333;">
-            <div style="width: 15%; height: 100%; background: #00ff41; box-shadow: 0 0 15px #00ff41;"></div>
-        </div>
-        <p style="font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 12px; text-align: center; font-family: 'Courier New', monospace;">
-            TARGET: Intel Core i5/i7 (LGA1155)
-        </p>
     </div>
 
-    <div style="text-align: center; margin-top: 25px;">
-        <a href="https://donatepay.ru/don/1472890" target="_blank" style="text-decoration: none;">
-            <button style="cursor: pointer; background: #00ff41; color: #000; border: none; padding: 15px 40px; border-radius: 5px; font-weight: bold; font-family: 'Courier New', monospace; font-size: 1.1rem; transition: 0.4s; box-shadow: 0 0 20px rgba(0, 255, 65, 0.3); text-transform: uppercase;">
-                ПОДДЕРЖАТЬ ЧЕРЕЗ DONATEPAY
-            </button>
-        </a>
-    </div>
-</div>
-    </div>
-    <p style="margin-top: 15px; font-weight: bold; font-size: 0.85rem; color: #fff; text-align: center; text-transform: uppercase; letter-spacing: 1px;">
-        Готовься к новому сезону "TheCore"
-    </p>
-</div>
     <div class="grid">
         <div class="glass-card reveal">
-            <h3 style="color: var(--primary);">Host Specs</h3>
+            <h3 style="color: var(--primary);">Infrastructure Status</h3>
             <table class="tech-table">
                 <tr><td class="label">OS</td><td>Debian 12</td></tr>
+                <tr><td class="label">Hardware</td><td>Host ПК №6</td></tr>
                 <tr><td class="label">CPU</td><td>Pentium G630</td></tr>
-                <tr><td class="label">RAM</td><td>8GB DDR3</td></tr>
-                <tr><td class="label">Kernel</td><td>Pufferfish 1.21</td></tr>
+                <tr><td class="label">Max Nodes</td><td style="color: var(--warning); font-weight: bold;">14 СЛОТОВ</td></tr>
             </table>
         </div>
 
-        <div class="glass-card reveal">
-            <h3 style="color: var(--primary);">Maintenance</h3>
-            <p style="font-size: 0.9rem;">Плановые работы проводятся еженедельно для оптимизации базы данных CoreProtect и очистки кэша.</p>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 12px;">
-                📅 <b>Среда</b><br>
-                ⏰ <b>21:00 — 22:00 МСК</b>
+        <div class="glass-card reveal" style="border: 1px solid #00ff41; background: rgba(0, 255, 65, 0.05);">
+            <h3 style="color: #00ff41; text-transform: uppercase;">⚡ Апгрейд системы</h3>
+            <p style="font-size: 0.9rem; color: var(--text-dim);">Собираем на переход с Pentium на Core i5/i7 для стабильного онлайна.</p>
+            
+            <div style="background: rgba(0,0,0,0.4); padding: 15px; border-radius: 10px; border: 1px solid rgba(0, 255, 65, 0.2);">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 5px; font-family: 'JetBrains Mono'; font-size: 0.8rem;">
+                    <span style="color: #00ff41;">CPU_UPGRADE</span>
+                    <span>15%</span>
+                </div>
+                <div style="width: 100%; height: 6px; background: #111; border-radius: 10px; overflow: hidden;">
+                    <div style="width: 15%; height: 100%; background: #00ff41; box-shadow: 0 0 10px #00ff41;"></div>
+                </div>
             </div>
+            <a href="https://donatepay.ru/don/1472890" target="_blank" style="display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #00ff41; font-weight: bold; font-size: 0.8rem;">[ ПОДДЕРЖАТЬ ПРОЕКТ ]</a>
         </div>
     </div>
 
-    <div class="glass-card reveal" style="margin-top: 30px;">
-        <h3 style="color: var(--primary);">System Administrator</h3>
-        <div style="display: flex; align-items: center; gap: 20px;">
-            <div style="width: 60px; height: 60px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 1.5rem;">L</div>
-            <div>
-                <b style="font-size: 1.2rem;">LIMooo</b><br>
-                <span style="color: var(--text-dim);">Junior SysAdmin / Project Lead</span>
+    <div class="glass-card reveal">
+        <div style="display: flex; align-items: center; gap: 20px; flex-wrap: wrap;">
+            <div style="width: 70px; height: 70px; background: linear-gradient(45deg, var(--primary), var(--accent)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-weight: 900; color: #000; font-size: 1.8rem;">L</div>
+            <div style="flex: 1;">
+                <b style="font-size: 1.4rem;">LIMooo</b><br>
+                <span style="color: var(--primary); font-family: 'JetBrains Mono'; font-size: 0.9rem;">Lead SysAdmin & Developer</span>
+                <p style="margin-top: 10px; font-style: italic; color: var(--text-dim); margin-bottom: 0;">"Мы строим инфраструктуру на века. Каждый конфиг выверен вручную."</p>
             </div>
         </div>
-        <p style="margin-top: 20px; font-style: italic; color: var(--text-dim);">"Моя цель — доказать, что крутой сервер можно поднять на любом железе, если правильно настроить конфиги и любить свое дело."</p>
     </div>
 
 </div>
 
 <footer class="footer">
     THE CORE PROJECT &copy; 2026<br>
-    <span style="color: #333;">POWERED BY DEBIAN & PENTIUM</span>
+    <span style="color: #222; font-family: 'JetBrains Mono';">STAY_CONNECTED_TO_THE_CORE</span>
 </footer>
 
 <script>
-    // Копирование IP
     function copyIP() {
         const text = document.getElementById('ipText').innerText;
         navigator.clipboard.writeText(text);
-        const box = document.querySelector('.copy-ip');
-        box.style.borderColor = '#fff';
-        setTimeout(() => box.style.borderColor = '#00ff88', 200);
-        alert('Адрес скопирован!');
+        alert('IP адрес скопирован! Ждем тебя в Whitelist.');
     }
 
-    // Анимация при скролле
-    const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-            }
+            if (entry.isIntersecting) entry.target.classList.add('active');
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
